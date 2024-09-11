@@ -1,16 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\progaram\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\progaram\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|solutionrelative:Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C1A8FFF6-2791-4F99-B73C-D7174BC33BE4}|..\\Class18th (Double Pointer)\\Class18th (Double Pointer).vcxproj|C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class18th (Double Pointer)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B54E6C74-E271-499A-99F9-389459285398}|..\\Class17th (Dangling Pointer)\\Class17th (Dangling Pointer).vcxproj|C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class17th (Dangling Pointer)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,43 +14,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Source.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class18th (Double Pointer)\\Source.c",
-              "RelativeDocumentMoniker": "..\\Class18th (Double Pointer)\\Source.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class18th (Double Pointer)\\Source.c",
-              "RelativeToolTip": "..\\Class18th (Double Pointer)\\Source.c",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-09-09T14:26:08.186Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Source.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class17th (Dangling Pointer)\\Source.c",
-              "RelativeDocumentMoniker": "..\\Class17th (Dangling Pointer)\\Source.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\Class17th (Dangling Pointer)\\Source.c",
-              "RelativeToolTip": "..\\Class17th (Dangling Pointer)\\Source.c",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAHwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-09-09T13:38:20.954Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Source.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\progaram\\Source.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c",
               "RelativeDocumentMoniker": "Source.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\SBS-Game-Academy-Lecture\\progaram\\Source.c",
+              "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c",
               "RelativeToolTip": "Source.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-08-20T10:57:25.095Z",
               "EditorCaption": ""
