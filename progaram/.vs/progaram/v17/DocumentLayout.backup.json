@@ -5,6 +5,9 @@
     {
       "AbsoluteMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|solutionrelative:Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A82D3EF-9F2E-4628-A721-57A5F84C52DD}|..\\Class2th (Duble Buffering)\\Class2th (Duble Buffering).vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +17,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Source.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c",
+              "RelativeDocumentMoniker": "..\\Class2th (Duble Buffering)\\Source.c",
+              "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c",
+              "RelativeToolTip": "..\\Class2th (Duble Buffering)\\Source.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-09-13T11:04:35.244Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +40,7 @@
               "RelativeDocumentMoniker": "Source.c",
               "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c",
               "RelativeToolTip": "Source.c",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAAAC4AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-08-20T10:57:25.095Z",
               "EditorCaption": ""

@@ -1,3 +1,13 @@
 ﻿  Source.c
-C:\Users\user\Desktop\LanguageGame\progaram\Source.c(69,41): warning C4267: '함수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  progaram.vcxproj -> C:\Users\user\Desktop\LanguageGame\progaram\x64\Debug\progaram.exe
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(74,6): error C2374: 'x': 재정의. 여러 번 초기화했습니다.
+      C:\Users\user\Desktop\LanguageGame\progaram\Source.c(67,6):
+      'x' 선언을 참조하십시오.
+  
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(75,6): error C2374: 'y': 재정의. 여러 번 초기화했습니다.
+      C:\Users\user\Desktop\LanguageGame\progaram\Source.c(68,6):
+      'y' 선언을 참조하십시오.
+  
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(77,2): warning C4013: 'Initialize'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(81,3): warning C4013: 'Flip'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(83,3): warning C4013: 'Clear'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\user\Desktop\LanguageGame\progaram\Source.c(112,2): warning C4013: 'Release'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
