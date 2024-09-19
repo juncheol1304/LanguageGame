@@ -7,6 +7,9 @@
       "RelativeMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|solutionrelative:Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0D5E6782-90D1-47D0-84B3-C0A6BC71D9FB}|..\\Class3th (Maze Game)\\Class3th (Maze Game).vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7A82D3EF-9F2E-4628-A721-57A5F84C52DD}|..\\Class2th (Duble Buffering)\\Class2th (Duble Buffering).vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -17,17 +20,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Source.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c",
+              "RelativeDocumentMoniker": "..\\Class3th (Maze Game)\\Source.c",
+              "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c",
+              "RelativeToolTip": "..\\Class3th (Maze Game)\\Source.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-09-19T12:42:26.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Source.c",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c",
               "RelativeDocumentMoniker": "..\\Class2th (Duble Buffering)\\Source.c",
               "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\Class2th (Duble Buffering)\\Source.c",
               "RelativeToolTip": "..\\Class2th (Duble Buffering)\\Source.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAQwHUAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-09-13T11:04:35.244Z",
               "EditorCaption": ""
@@ -40,7 +56,7 @@
               "RelativeDocumentMoniker": "Source.c",
               "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c",
               "RelativeToolTip": "Source.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-08-20T10:57:25.095Z",
               "EditorCaption": ""
