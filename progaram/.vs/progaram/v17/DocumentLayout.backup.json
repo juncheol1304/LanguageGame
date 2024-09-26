@@ -5,9 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{87A024C8-1F31-403F-BC56-AA1E77B8EEDC}|progaram.vcxproj|solutionrelative:Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0D5E6782-90D1-47D0-84B3-C0A6BC71D9FB}|..\\Class3th (Maze Game)\\Class3th (Maze Game).vcxproj|C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,20 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Source.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c",
-              "RelativeDocumentMoniker": "..\\Class3th (Maze Game)\\Source.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\Class3th (Maze Game)\\Source.c",
-              "RelativeToolTip": "..\\Class3th (Maze Game)\\Source.c",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAAAF0AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-09-24T12:25:33.298Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -39,7 +24,7 @@
               "RelativeDocumentMoniker": "Source.c",
               "ToolTip": "C:\\Users\\user\\Desktop\\LanguageGame\\progaram\\Source.c",
               "RelativeToolTip": "Source.c",
-              "ViewState": "AgIAAMsAAAAAAAAAAAAiwNQAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAMUBAAAAAAAAAAAIwMkBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-08-20T10:57:25.095Z",
               "EditorCaption": ""

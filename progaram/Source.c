@@ -1,233 +1,494 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <windows.h>
-#include <time.h>
+#include <stdio.h>	// printf(), scanf()
+#include <stdlib.h>	// rand()
+#include <time.h>	// time()
+#include <conio.h>	// _getch()
+#include <windows.h>// wincon.h
 
-#define BOARD_WIDTH 17
-#define BOARD_HEIGHT 20
 
-// 블록 모양 정의
-char blocks[7][4][4] = {
-    // I 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', '#', '#'},
-        {' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // O 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', ' ', ' '},
-        {'#', '#', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // T 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', '#', ' '},
-        {' ', '#', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // J 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', '#', ' '},
-        {' ', ' ', '#', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // L 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', '#', ' '},
-        {'#', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // S 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {' ', '#', '#', ' '},
-        {'#', '#', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-    // Z 블록
-    {
-        {' ', ' ', ' ', ' '},
-        {'#', '#', ' ', ' '},
-        {' ', '#', '#', ' '},
-        {' ', ' ', ' ', ' '}
-    }
+#define true 1
+#define false 0
+#define bool int
+
+#define BOARD_WIDTH 10	// 게임 가로 영역(열) >=10 :-
+#define BOARD_HEIGHT 20	// 게임 세로 영역(행) >=20 :|
+
+#define BOARD_X 4	// 보드 열 x좌표
+#define BOARD_Y 2	// 보드 행 y좌표
+
+#define DELAY 100	// 지연
+
+// 키보드 방향키로 움직이고 스페이스로 떨어트림
+enum ControlKeys
+{
+	UP = 72,
+	DOWN = 80,
+	LEFT = 75,
+	RIGHT = 77,
+	SPACE = 32
 };
 
-int currentX = 4; // 블록의 X 좌표
-int currentY = 0; // 블록의 Y 좌표
-int currentBlock = 0; // 현재 블록 인덱스
-char board[BOARD_HEIGHT][BOARD_WIDTH + 1]; // 보드 배열
-int score = 0; // 점수
+static int score = 0;	// 게임 점수
+static int level = 1;	// 게임 레벨
+static int speed = 180;
+int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { 0, };
 
-// 보드 초기화
-void initBoard() {
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-        for (int x = 0; x < BOARD_WIDTH; x++) {
-            board[y][x] = ' '; // 빈 공간
-        }
-        board[y][BOARD_WIDTH] = '\0'; // 문자열 종료
-    }
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-        board[y][0] = '|'; // 왼쪽 벽
-        board[y][BOARD_WIDTH - 1] = '|'; // 오른쪽 벽
-    }
-    for (int x = 0; x < BOARD_WIDTH; x++) {
-        board[0][x] = '-'; // 상단 벽
-        board[BOARD_HEIGHT - 1][x] = '-'; // 바닥
-    }
+// 테르리스 블록 모양
+int blocks[28][4][4] =
+{
+	// ####
+	{
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0}
+
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 1, 1, 1, 1},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 1, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 1, 1, 1, 1},
+		{ 0, 0, 0, 0}
+	},
+
+	// ##
+	// ##
+	{
+		{ 1, 1, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	
+	//  #
+	// ###
+	{
+		{ 0, 1, 0, 0},
+		{ 1, 1, 1, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 1, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 1, 1, 1, 0},
+		{ 0, 1, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 1, 0, 0}
+	},
+
+	//   #
+	// ###
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 0, 1, 0},
+		{ 1, 1, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 1, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 1, 0},
+		{ 1, 0, 0, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 0, 0, 0},
+		{ 1, 0, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+
+	// #
+	// ###
+	{
+		{ 0, 0, 0, 0},
+		{ 1, 0, 0, 0},
+		{ 1, 1, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 1, 1, 0, 0},
+		{ 1, 0, 0, 0},
+		{ 1, 0, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+
+	//  ##
+	// ##
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 1, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 1, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 0, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+
+		// ##
+		//  ##
+	{
+		{ 0, 0, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 1, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 0, 0},
+		{ 1, 1, 0, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 0, 0, 0}
+	},
+	{
+		{ 0, 0, 1, 0},
+		{ 0, 1, 1, 0},
+		{ 0, 1, 0, 0},
+		{ 0, 0, 0, 0}
+	},
+}; // end block[][][]
+
+	
+	// [1] 커서 숨기기 : ture(보이기), false(숨기기)
+void CursorVisible(bool blnCursorVisible) // 커서 보이기,숨기기
+{
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+	cursorInfo.bVisible = blnCursorVisible;
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), & cursorInfo);
 }
 
-// 랜덤 블록 생성
-void generateNewBlock() {
-    currentBlock = rand() % 7; // 랜덤 블록 선택
-    currentX = 4; // 초기 X 좌표
-    currentY = 0; // 초기 Y 좌표
+// [2]커서 위치 설정
+void SetCursorPosition(int cursorLeft, int cursorTop)
+{
+	int posX = cursorLeft;
+	int posY = cursorTop;
+
+	COORD pos = { posX, posY };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-// 블록 회전 함수
-void rotateBlock() {
-    if (currentBlock == 1) return; // O 블록은 회전하지 않음
+// [3]커서 위치 가져오기
+COORD GetCursorPosition(void)
+{
+	COORD cursor;
+	CONSOLE_SCREEN_BUFFER_INFO cursorInfo;
 
-    char temp[4][4];
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            temp[j][3 - i] = blocks[currentBlock][i][j]; // 회전된 형태 저장
-        }
-    }
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            blocks[currentBlock][i][j] = temp[i][j];
-        }
-    }
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+	cursor.X = cursorInfo.dwCursorPosition.X;
+	cursor.Y = cursorInfo.dwCursorPosition.Y;
+	return cursor;
 }
 
-// 보드 그리기
-void drawBoard() {
-    system("cls"); // 화면 지우기
-    printf("Score: %d\n", score); // 점수 출력
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-        printf("%s\n", board[y]); // 현재 보드 상태 출력
-    }
+// [4] 시작 화면, 콘솔 초기화
+void ConsoleInit()
+{
+	// 콘솔 초기화 시작화면
+	printf("테트리스\n\n");
+	printf(""
+		"====================		\n"
+		"조작법:						\n"
+		"→     오른쪽 이동			\n"
+		"←     왼  쪽 이동			\n"
+		"↓     아래쪽 이동			\n"
+		"↑     블  록 회전			\n"
+		"space  블록 드랍				\n"
+		"====================		\n");
+	_getch();
+	system("cls");
+	CursorVisible(false);		// 커서 숨기기
+	SetCursorPosition(0, 0);	// 보드 시작위치
 }
 
-// 블록 배치
-void placeBlock(int x, int y) {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            if (blocks[currentBlock][i][j] == '#') {
-                board[y + i][x + j] = '#'; // 블록 문자 배치
-            }
-        }
-    }
+// [5] 게임판 그리기
+void DrawField(void)
+{
+	int x, y;
+
+	// 중앙 라인
+	for (x = 1; x <= BOARD_WIDTH + 1; x++)
+	{
+		board[BOARD_HEIGHT][x] = 1;
+		SetCursorPosition((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT); // 콘솔 좌표
+		printf("━━");
+	}
+	
+	// 왼쪽 라인
+	for (y = 0; y < BOARD_HEIGHT + 1; y++)
+	{
+		board[y][0] = 1;
+		SetCursorPosition(BOARD_X, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┗");
+		else
+			printf("┃");
+	}
+
+	// 오른쪽 라인
+	for (y = 0; y < BOARD_HEIGHT + 1; y++)
+	{
+		board[y][BOARD_WIDTH+1] = 1;
+		SetCursorPosition(BOARD_X + (BOARD_WIDTH +2) *2, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┛");
+		else
+			printf("┃");
+	}
+
+	// 모서리 값 변경
+	board[20][0] = 1;
+	board[20][11] = 1;
+
+	puts(" ");
 }
 
-// 블록 비우기
-void clearBlock() {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            if (blocks[currentBlock][i][j] == '#') {
-                board[currentY + i][currentX + j] = ' '; // 이전 위치 비우기
-            }
-        }
-    }
+// [6] 점수판 출력
+void ShowPoint(void)
+{
+	SetCursorPosition(40, 3);
+	printf("테트리스");
+	SetCursorPosition(40, 5);
+	printf("레벨: %d\n", level);
+	SetCursorPosition(40, 7);
+	printf("점수: %d\n", score);
 }
 
-// 바닥 및 다른 블록 체크
-int isAtBottom() {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            if (blocks[currentBlock][i][j] == '#') {
-                if (currentY + i + 1 >= BOARD_HEIGHT - 1 ||
-                    (currentY + i + 1 < BOARD_HEIGHT &&
-                        currentX + j >= 1 &&
-                        currentX + j < BOARD_WIDTH - 1 &&
-                        board[currentY + i + 1][currentX + j] != ' ')) {
-                    return 1; // 다른 블록에 닿음
-                }
-            }
-        }
-    }
-    return 0; // 바닥에 닿지 않음
+// [7] 블럭 위치
+// 들어간다 ture, 못들어간다 false
+
+bool CanPositionedAt(int rotation, int move1, int move2)
+{
+	int x, y;
+	int arrX, arrY; // 좌표 저장
+	COORD pos = GetCursorPosition();
+
+	arrX = pos.X + move1;
+	arrY = pos.Y + move2;
+
+	arrX = (arrX / 2) - 2;
+	arrY = arrY - BOARD_Y;
+
+	for (y = 0; y < 4; y++)
+	{
+		for (x = 0; x < 4; x++)
+		{
+			if ((blocks[rotation][y][x] == 1) && board[arrY + y][arrX + x] == 1)
+				return false; // 보드와 벽돌 겹침
+		}
+	}
+	return true; // 겹치지 않음
 }
 
-// 줄 삭제 함수
-void clearLines() {
-    for (int y = BOARD_HEIGHT - 2; y > 0; y--) {
-        int complete = 1;
-        for (int x = 1; x < BOARD_WIDTH - 1; x++) {
-            if (board[y][x] == ' ') {
-                complete = 0; // 줄이 완전하지 않으면
-                break;
-            }
-        }
-        if (complete) {
-            // 줄 삭제 및 점수 증가
-            score += 100;
-            for (int i = y; i > 1; i--) {
-                for (int x = 1; x < BOARD_WIDTH - 1; x++) {
-                    board[i][x] = board[i - 1][x]; // 위 줄을 아래로 이동
-                }
-            }
-            // 삭제된 줄의 맨 위를 비우기
-            for (int x = 1; x < BOARD_WIDTH - 1; x++) {
-                board[1][x] = ' ';
-            }
-        }
-    }
+// [8] 현재 위치에 블록 출력
+void WriteBlock(int rotation)
+{
+	int i, j;
+	COORD cursor = GetCursorPosition();
+
+	if (CanPositionedAt(rotation, 0, 0) == true)
+	{
+		for (i = 0; i < 4; i++)		// 행 반복
+		{
+			for (j = 0; j < 4; j++)	// 열 반복
+			{
+				SetCursorPosition(cursor.X + (j * 2), cursor.Y + i);
+				if (blocks[rotation][i][j] == 1)
+				{
+					printf("■");
+				}
+			}
+		}
+		SetCursorPosition(cursor.X, cursor.Y);
+	}
 }
 
-// 블록 이동 함수
-void moveBlock(int dx, int dy) {
-    clearBlock(); // 이전 위치 비우기
-    currentX += dx; // X 좌표 이동
-    currentY += dy; // Y 좌표 이동
 
-    // 경계 체크
-    if (currentX < 1) currentX = 1; // 왼쪽 벽에 닿지 않도록
-    if (currentX >= BOARD_WIDTH - 5) currentX = BOARD_WIDTH - 5; // 오른쪽 벽에 닿지 않도록
+// [9] 블록 보드판
+void BoardInit(int n, int move1, int move2)
+{
+	COORD pos = GetCursorPosition();
 
-    // 아래로 이동
-    if (isAtBottom()) {
-        currentY--; // 블록을 바닥에 고정
-        placeBlock(currentX, currentY); // 현재 블록 배치
-        clearLines(); // 줄 삭제
-        generateNewBlock(); // 새로운 블록 생성
-    }
-    else {
-        placeBlock(currentX, currentY); // 새로운 위치에 블록 배치
-    }
+	int arrX = pos.X + move1;	// 콘솔 열 좌표
+	int arrY = pos.Y + move2;	// 콘솔 행 좌표
+	int x, y;
+
+	arrX = arrX / 2 - 2;
+	arrY = arrY - 2;
+
+	for (y = 0; y < 4; y++)
+	{
+		for (x = 0; x < 4; x++)
+		{
+			if (blocks[n][y][x] == 1)
+			{
+				board[arrY + y][arrX + x] = 1;
+			}
+		}
+	}
 }
 
-int main() {
-    srand(time(NULL)); // 랜덤 시드 초기화
-    initBoard(); // 보드 초기화
-    generateNewBlock(); // 초기 블록 생성
-    placeBlock(currentX, currentY); // 초기 블록 배치
-    drawBoard(); // 보드 그리기
+//[10] 배열,블록 옮기기
+void Stepper(int column)
+{
+	int y, x;
 
-    // 게임 루프
-    while (1) {
-        if (_kbhit()) { // 키 입력 확인
-            char ch = _getch();
-            if (ch == 'q') break; // 'q'를 누르면 종료
-            else if (ch == 'a') moveBlock(-1, 0); // 왼쪽 이동
-            else if (ch == 'd') moveBlock(1, 0); // 오른쪽 이동
-            else if (ch == 's') moveBlock(0, 1); // 아래 이동
-            else if (ch == 'w') { // 블록 회전
-                clearBlock(); // 이전 위치 비우기
-                rotateBlock(); // 블록 회전
-                placeBlock(currentX, currentY); // 새로운 위치에 블록 배치
-            }
-        }
-        drawBoard();
-        Sleep(100);
-    }
-    return 0;
+	for (y = column; y >= 0; y--)
+	{
+		for (x = 1; x <= 10; x++)
+		{
+			board[y][x] = board[y - 1][x];
+		}
+	}
+	for (x = 1; x <= 10; x++)
+		board[0][x] = 0;
+
+	for (y = 1; y <= 19; y++)
+	{
+		for (x = 1; x <= 10; x++)
+		{
+			SetCursorPosition((BOARD_X)+x * 2 + 1, y + BOARD_Y);
+			if (board[y][x] == 1)
+				printf("■");
+		}
+	}
+}
+
+// [11] level 스코어 계산
+void CountScore(void)
+{
+	score += 10;
+	if (score % 30 == 0)
+	{
+		level += 1;
+		speed -= 30;	// 레빌 1증가할때 스피드 30밀리초 빨라짐
+	}
+	ShowPoint();
+}
+
+// [12] 블록 한줄 사라짐
+void RemoveLine(void)
+{
+	int i;
+	int x, y;
+	int z = 0;
+
+	for (y = 19; y >= 1; y--)
+	{
+		for (z = 0; z < 4; z++)
+		{
+			i = 0;
+			for (x = 1; x < 11; x++)
+			{
+				if (board[y][x] == 1)
+				{
+					i++; 
+					if (i == 10)
+					{
+						for (x = 1; x < 11; x++)
+						{
+							SetCursorPosition((x + 2) * 2, y + 2);
+							printf("  ");
+						}
+						CountScore();
+						Stepper(y);
+					}
+				}
+			}
+		}
+	}
+
+}
+
+// [13] 현재 블록 클리어
+void ClearBlock(int rotation, int move1, int move2)
+{
+	int x, y;
+}
+
+int main()
+{
+	ConsoleInit();	// 시작 화면
+
+	DrawField();	// 게임 영역
+
+	ShowPoint();	// 점수판
+	
+	return 0;
 }
