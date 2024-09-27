@@ -480,8 +480,132 @@ void RemoveLine(void)
 void ClearBlock(int rotation, int move1, int move2)
 {
 	int x, y;
+
+	COORD cursor = GetCursorPosition();
+
+	if (CanPositionedAt(rotation, move1, move2) == true)
+	{
+		for (y = 0; y < 4; y++)
+		{
+			for (x = 0; x < 4; x++)
+			{
+				SetCursorPosition(cursor.X + (x * 2), cursor.Y + y);
+				if (blocks[rotation][y][x] == 1)
+					printf(" ");
+			}
+		}
+		SetCursorPosition(cursor.X + move1, cursor.Y + move2);
+	}
 }
 
+// [14] 게임 시작
+void StartGame(void)
+{
+	int n;
+	int kb;
+	int c = 2;
+
+	srand((unsigned)time(0));	// rnad() 함수 랜덤값
+
+	while (1)
+	{
+		// 블록 생성 좌표 (13,2)
+		SetCursorPosition(13, 2);
+
+		n = rand() % 7;
+
+		n = n * 4;
+
+		if (level == 10) // 레벨 10되면 게임 승리
+		{
+			SetCursorPosition(40, 15);
+			printf("게임 클리어");
+			getchar();
+			exit(1);
+		}
+		
+		if (CanPositionedAt(n, 0, 0) == false)
+			break; // 게임 끝
+
+		while (1)
+		{
+			int ww = 0;
+			int k = 0;
+			
+			while (!_kbhit())
+			{
+				WriteBlock(n);
+				Sleep(DELAY + speed);
+				if (CanPositionedAt(n, 0, 1) == false)
+				{
+					ww = 1;
+					BoardInit(n, 0, 0); //보드 벽돌 배열 1추가
+					RemoveLine();
+					break;
+				}
+				ClearBlock(n, 0, 1);
+			}
+			if (ww == 1)
+				break;
+
+			kb = _getch();
+
+			// 방향키
+			switch (kb)
+			{
+			case LEFT:
+				ClearBlock(n, -2, 0);
+				WriteBlock(n);
+				break;
+			case RIGHT:
+				ClearBlock(n, 2, 0);
+				WriteBlock(n);
+				break;
+			case UP:
+				k = n / 4;
+				k *= 4;
+
+				if ((n + 1) <= (k + 3))
+				{
+					k = n + 1;
+				}
+
+				if (CanPositionedAt(k, 0, 0) == true)
+				{
+					ClearBlock(n, 0, 0);
+					n = k;
+					WriteBlock(n);
+					break;
+				}
+				break;
+			case DOWN:
+				ClearBlock(n, 0, 2);
+				break;
+			case SPACE: // 아래로 떨어지는 로직
+				while (1)
+				{
+					ClearBlock(n, 0, 1);
+					if (CanPositionedAt(n, 0, 1) == false)
+					{
+						WriteBlock(n);
+						BoardInit(n, 0, 0);
+						break;
+					}
+				}
+			default: break;
+			}
+		}
+	}
+}
+
+//[15] 게임 종료 화면
+void EndGame()
+{
+	SetCursorPosition(40, 15);
+	printf("게임 종료");
+	getchar();
+	system("cls");
+}
 int main()
 {
 	ConsoleInit();	// 시작 화면
@@ -489,6 +613,10 @@ int main()
 	DrawField();	// 게임 영역
 
 	ShowPoint();	// 점수판
+
+	StartGame();	// 게임 시작
+
+	EndGame();		// 게임 종료
 	
 	return 0;
 }

@@ -1,4 +1,1 @@
-﻿  Source.c
-C:\Users\user\Desktop\LanguageGame\progaram\Source.c(482,9): warning C4101: 'y' :참조되지 않은 지역 변수입니다.
-C:\Users\user\Desktop\LanguageGame\progaram\Source.c(482,6): warning C4101: 'x' :참조되지 않은 지역 변수입니다.
-  progaram.vcxproj -> C:\Users\user\Desktop\LanguageGame\progaram\x64\Debug\progaram.exe
+﻿
