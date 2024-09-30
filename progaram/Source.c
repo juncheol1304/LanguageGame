@@ -32,6 +32,7 @@ static int level = 1;	// 게임 레벨
 static int speed = 180;
 int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { 0, };
 
+
 // 테르리스 블록 모양
 int blocks[28][4][4] =
 {
