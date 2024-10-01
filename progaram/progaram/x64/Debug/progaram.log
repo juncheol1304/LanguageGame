@@ -1,2 +1,2 @@
-﻿  Source.c
-  progaram.vcxproj -> C:\Users\user\Desktop\LanguageGame\progaram\x64\Debug\progaram.exe
+﻿Source.obj : error LNK2019: ClearBlockBlockToGround 함수에서 참조되는 확인할 수 없는 외부 기호
+C:\Users\user\Desktop\LanguageGame\progaram\x64\Debug\progaram.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
