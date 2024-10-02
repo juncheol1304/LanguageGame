@@ -371,7 +371,7 @@ void WriteBlock(int rotation)
                 SetCursorPosition(cursor.X + (j * 2), cursor.Y + i);
                 if (blocks[rotation][i][j] == 1)
                 {
-                    printf("■ ");
+                    printf("■");
                 }
             }
         }
@@ -447,45 +447,73 @@ void RemoveLine(void)
 {
     int x, y;
 
-    for (y = 19; y >= 1; y--) // 맨 아래 줄부터 시작
+    // 아래에서 위로 확인
+    for (y = 19; y >= 1; y--)
     {
-        int isFull = 1; // 줄이 가득 찼는지 체크하는 플래그
-        for (x = 1; x <= 10; x++) // 모든 열을 체크
+        int lineCleared = 1; // 이 줄이 꽉 찼는지 확인
+
+        // 해당 줄이 꽉 차 있는지 확인
+        for (x = 1; x < 11; x++)
         {
-            if (board[y][x] == 0)
+            if (board[y][x] == 0) // 비어있는 부분이 있으면
             {
-                isFull = 0; // 빈 공간이 발견되면 플래그를 변경
-                break;
+                lineCleared = 0; // 꽉 차지 않음
+                break; // 이 줄을 더 이상 확인할 필요 없음
             }
         }
-        // 줄이 가득 찼다면 삭제
-        if (isFull)
+
+        // 줄이 꽉 차면 처리
+        if (lineCleared)
         {
-            for (int clearX = 1; clearX <= 10; clearX++)
+            // 해당 줄을 지운 후, 위의 블록을 아래로 이동
+            for (int row = y; row > 1; row--) // 줄을 위에서 아래로 이동
             {
-                SetCursorPosition((BOARD_X)+clearX * 2, y + BOARD_Y);
-                printf("  "); // 줄을 지움
+                for (x = 1; x < 11; x++)
+                {
+                    board[row][x] = board[row - 1][x]; // 위의 블록을 아래로 이동
+                }
             }
-            CountScore(); // 점수 업데이트
-            Stepper(y);   // 줄을 아래로 이동
-            y++;          // 같은 줄을 다시 체크
+
+            // 가장 위 줄은 비워줌
+            for (x = 1; x < 11; x++)
+            {
+                board[1][x] = 0; // 최상단 줄 비우기
+            }
+
+            // 시각적으로 업데이트
+            for (x = 1; x < 11; x++)
+            {
+                SetCursorPosition((x + 2) * 2, y + 2);
+                printf("  "); // 해당 줄 지우기
+            }
+
+            CountScore(); // 점수 계산
+            // 블록을 제거한 후, 한 줄 아래로 이동한 경우 추가 검사 필요
+            y++; // 한 줄 삭제했으므로 다시 위에서 확인
         }
     }
 }
 
-// [13] 블록을 아래로 떨어뜨리는 로직
-void BlockToGround(int rotation)
+
+// [13] 현재 블록 클리어
+void ClearBlock(int rotation, int move1, int move2)
 {
-    while (1)
+    int x, y;
+
+    COORD cursor = GetCursorPosition();
+
+    if (CanPositionedAt(rotation, move1, move2) == true)
     {
-        ClearBlock(rotation, 0, 1); // 블록을 한 칸 아래로 이동
-        if (CanPositionedAt(rotation, 0, 1) == false) // 더 이상 아래로 이동할 수 없으면
+        for (y = 0; y < 4; y++)
         {
-            WriteBlock(rotation); // 현재 블록을 보드에 그리기
-            BoardInit(rotation, 0, 0); // 보드에 블록 추가
-            RemoveLine(); // 가득 찬 줄 체크
-            break; // 종료
+            for (x = 0; x < 4; x++)
+            {
+                SetCursorPosition(cursor.X + (x * 2), cursor.Y + y);
+                if (blocks[rotation][y][x] == 1)
+                    printf("  ");
+            }
         }
+        SetCursorPosition(cursor.X + move1, cursor.Y + move2);
     }
 }
 
@@ -494,9 +522,9 @@ void StartGame(void)
 {
     int n;
     int kb;
-    int k;
+    int c = 2;
 
-    srand((unsigned)time(0));   // 랜덤 블록 생성
+    srand((unsigned)time(0));   // rnad() 함수 랜덤값
 
     while (1)
     {
@@ -504,9 +532,10 @@ void StartGame(void)
         SetCursorPosition(13, 2);
 
         n = rand() % 7;
+
         n = n * 4;
 
-        if (level == 10) // 레벨 10에 도달하면 게임 클리어
+        if (level == 10) // 레벨 10되면 게임 승리
         {
             SetCursorPosition(40, 15);
             printf("게임 클리어");
@@ -515,11 +544,12 @@ void StartGame(void)
         }
 
         if (CanPositionedAt(n, 0, 0) == false)
-            break; // 게임 종료
+            break; // 게임 끝
 
         while (1)
         {
-            int dropped = 0; // 블록이 떨어졌는지 체크하는 플래그
+            int ww = 0;
+            int k = 0;
 
             while (!_kbhit())
             {
@@ -527,19 +557,19 @@ void StartGame(void)
                 Sleep(DELAY + speed);
                 if (CanPositionedAt(n, 0, 1) == false)
                 {
-                    BoardInit(n, 0, 0); // 블록을 보드에 추가
-                    RemoveLine();        // 가득 찬 줄 체크
-                    dropped = 1;        // 블록이 떨어짐
+                    ww = 1;
+                    BoardInit(n, 0, 0); //보드 벽돌 배열 1추가
+                    RemoveLine();
                     break;
                 }
                 ClearBlock(n, 0, 1);
             }
-            if (dropped)
+            if (ww == 1)
                 break;
 
             kb = _getch();
 
-            // 방향키 처리
+            // 방향키
             switch (kb)
             {
             case LEFT:
@@ -550,27 +580,42 @@ void StartGame(void)
                 ClearBlock(n, 2, 0);
                 WriteBlock(n);
                 break;
-            case UP:            
-                k = (n / 4) * 4;
-                if ((n + 1) <= (k + 3) && CanPositionedAt(n + 1, 0, 0))
+            case UP:
+                k = n / 4;
+                k *= 4;
+
+                if ((n + 1) <= (k + 3))
+                {
+                    k = n + 1;
+                }
+
+                if (CanPositionedAt(k, 0, 0) == true)
                 {
                     ClearBlock(n, 0, 0);
-                    n++;
+                    n = k;
                     WriteBlock(n);
+                    break;
                 }
                 break;
             case DOWN:
                 ClearBlock(n, 0, 2);
                 break;
-            case SPACE: // 블록을 아래로 빠르게 떨어뜨리는 로직
-                BlockToGround(n); // 블록을 바닥으로 떨어뜨림
-                break;
+            case SPACE: // 아래로 떨어지는 로직
+                while (1)
+                {
+                    ClearBlock(n, 0, 1);
+                    if (CanPositionedAt(n, 0, 1) == false)
+                    {
+                        WriteBlock(n);
+                        BoardInit(n, 0, 0);
+                        break;
+                    }
+                }
             default: break;
             }
         }
     }
 }
-
 
 //[15] 게임 종료 화면
 void EndGame()
