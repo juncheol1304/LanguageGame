@@ -443,52 +443,37 @@ void CountScore(void)
 }
 
 // [12] 블록 한줄 사라짐
-void RemoveLine(void)
-{
+void RemoveLine(void) {
     int x, y;
 
-    // 아래에서 위로 확인
-    for (y = 19; y >= 1; y--)
-    {
-        int lineCleared = 1; // 이 줄이 꽉 찼는지 확인
+    for (y = BOARD_HEIGHT - 1; y >= 1; y--) {
+        int lineCleared = 1;
 
-        // 해당 줄이 꽉 차 있는지 확인
-        for (x = 1; x < 11; x++)
-        {
-            if (board[y][x] == 0) // 비어있는 부분이 있으면
-            {
-                lineCleared = 0; // 꽉 차지 않음
-                break; // 이 줄을 더 이상 확인할 필요 없음
+        for (x = 1; x < BOARD_WIDTH + 1; x++) {
+            if (board[y][x] == 0) {
+                lineCleared = 0;
+                break;
             }
         }
 
-        // 줄이 꽉 차면 처리
-        if (lineCleared)
-        {
-            // 해당 줄을 지운 후, 위의 블록을 아래로 이동
-            for (int row = y; row > 1; row--) // 줄을 위에서 아래로 이동
-            {
-                for (x = 1; x < 11; x++)
-                {
-                    board[row][x] = board[row - 1][x]; // 위의 블록을 아래로 이동
+        if (lineCleared) {
+            for (int row = y; row > 1; row--) {
+                for (x = 1; x < BOARD_WIDTH + 1; x++) {
+                    board[row][x] = board[row - 1][x];
                 }
             }
 
-            // 가장 위 줄은 비워줌
-            for (x = 1; x < 11; x++)
-            {
+            for (x = 1; x < BOARD_WIDTH + 1; x++) {
                 board[1][x] = 0; // 최상단 줄 비우기
             }
 
-            // 시각적으로 업데이트
-            for (x = 1; x < 11; x++)
-            {
-                SetCursorPosition((x + 2) * 2, y + 2);
-                printf("  "); // 해당 줄 지우기
+            // 화면 업데이트
+            for (x = 1; x < BOARD_WIDTH + 1; x++) {
+                SetCursorPosition((x + 2) * 2, y + BOARD_Y);
+                printf("  ");
             }
 
-            CountScore(); // 점수 계산
-            // 블록을 제거한 후, 한 줄 아래로 이동한 경우 추가 검사 필요
+            CountScore();
             y++; // 한 줄 삭제했으므로 다시 위에서 확인
         }
     }
