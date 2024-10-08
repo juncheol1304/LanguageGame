@@ -8,8 +8,8 @@
 #define FIELD_WIDTH 11
 #define FIELD_HEIGHT 23
 
-//필드 좌상단 좌료 (14,2), next Block 좌상단 좌표(48,2)
-//레벨인쇄할곳 좌표(47,9), 점수인쇄좌표(47,13)
+// 필드 좌상단 좌료 (14,2), next Block 좌상단 좌표(48,2)
+// 레벨인쇄할곳 좌표(47,9), 점수인쇄좌표(47,13)
 #define DATUM_POINT_X 14
 #define DATUM_POINT_Y 2
 #define LEVEL_BOARD_POS_X 47
@@ -20,7 +20,7 @@
 #define NEXT_POS_Y 3
 
 
-//테트리스 블럭 1칸
+// 테트리스 블럭 1칸
 typedef struct _BLOCK
 {
     int x;
@@ -30,7 +30,7 @@ typedef struct _BLOCK
 
 
 
-//콘솔에서 커서위치 설정
+// 콘솔에서 커서위치 설정
 void gotoxy(int x, int y)
 {
     COORD POS;
@@ -39,22 +39,22 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), POS);
 }
 
-//시작화면출력
+// 1번 시작화면출력
 void StartingScreen()
 {
     gotoxy(0, 0);
-    puts("┌──────────────────────────────────────────────────────────────────────────────┐");
-    puts("│  ■■■■■  ■ ■      ■■■■■       ■■■■■ ■          ■       ■■■■■   ■ ■    ■■■   ■ │");
-    puts("│  ■      ■ ■      ■               ■ ■         ■ ■          ■   ■ ■   ■   ■  ■ │");
-    puts("│  ■■■■■ ■■ ■      ■■■■■       ■■■■■ ■        ■   ■         ■ ■■■ ■    ■■■   ■ │");
-    puts("│  ■      ■ ■      ■           ■     ■       ■     ■        ■   ■ ■          ■ │");
-    puts("│  ■■■■■  ■ ■      ■■■■■       ■■■■■ ■                      ■   ■ ■    ■■■■  ■ │");
-    puts("│         ■ ■     ■■■■■■■■           ■     ■■■■■■■■■■■          ■ ■    ■  ■  ■ │");
-    puts("│                                                                      ■■■■  ■ │");
-    puts("└──────────────────────────────────────────────────────────────────────────────┘");
+    puts("                  ┌──────────────────────────────────────────────────────────────────────────────┐");
+    puts("                  │  ■■■■■  ■ ■      ■■■■■       ■■■■■ ■          ■       ■■■■■   ■ ■    ■■■   ■ │");
+    puts("                  │  ■      ■ ■      ■               ■ ■         ■ ■          ■   ■ ■   ■   ■  ■ │");
+    puts("                  │  ■■■■■ ■■ ■      ■■■■■       ■■■■■ ■        ■   ■         ■ ■■■ ■    ■■■   ■ │");
+    puts("                  │  ■      ■ ■      ■           ■     ■       ■     ■        ■   ■ ■          ■ │");
+    puts("                  │  ■■■■■  ■ ■      ■■■■■       ■■■■■ ■                      ■   ■ ■    ■■■■  ■ │");
+    puts("                  │         ■ ■     ■■■■■■■■           ■     ■■■■■■■■■■■          ■ ■    ■  ■  ■ │");
+    puts("                  │                                                                      ■■■■  ■ │");
+    puts("                  └──────────────────────────────────────────────────────────────────────────────┘");
     while (1)
     {
-        gotoxy(30, 20);
+        gotoxy(50, 20);
         printf("게임 시작");
         Sleep(500);
         gotoxy(30, 20);
@@ -68,7 +68,7 @@ void StartingScreen()
     }
 }
 
-//게임화면 테두리 및 화면 구성요소 출력 
+// 2번 게임화면 테두리 및 화면 구성요소 출력 
 void GameScreen()
 {
     gotoxy(0, 0);
@@ -92,8 +92,8 @@ void GameScreen()
     puts("│           │                       │                                            │");
     puts("│           │                       │                                            │");
     puts("│           │                       │       ┌  CONTROLS ───────────┐             │");
-    puts("│           │                       │       │ 블럭이동:←→↓      │             │");
-    puts("│           │                       │       │ 회전 : ↑            │             │");
+    puts("│           │                       │       │ 블럭이동:←→↓         │             │");
+    puts("│           │                       │       │ 회전 : ↑             │             │");
     puts("│           │                       │       │ 드랍 : SPACEBAR      │             │");
     puts("│           │                       │       │ 일시정지 : P         │             │");
     puts("│           │                       │       │ 종료 : Q             │             │");
@@ -102,7 +102,7 @@ void GameScreen()
 
 }
 
-//콘솔에서 커서 안보이게 하기(showFlag true 보임, false 안보임)
+// 콘솔에서 커서 안보이게 하기(showFlag true 보임, false 안보임)
 void ShowConsoleCursor(bool showFlag)
 {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -114,7 +114,7 @@ void ShowConsoleCursor(bool showFlag)
 }
 
 
-//필드 지우기
+// 필드 지우기
 void ClearField(int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     for (int y = 0; y < FIELD_HEIGHT; y++)
@@ -131,7 +131,7 @@ void ClearField(int field[FIELD_HEIGHT][FIELD_WIDTH])
 }
 
 
-//필드출력 자료값이 1인 부분에는 ■ 를 출력
+// 필드출력 자료값이 1인 부분에는 ■ 를 출력
 void PrintField(int field[][FIELD_WIDTH])
 {
 
@@ -148,7 +148,7 @@ void PrintField(int field[][FIELD_WIDTH])
     }
 }
 
-//게임종료화면 출력
+// 3번 게임종료화면 출력
 void GameOver(int score, int level)
 {
     gotoxy(0, 10);
@@ -164,7 +164,7 @@ void GameOver(int score, int level)
     Sleep(3000);//게임종료 메시지 출력후 5초간 정지
 }
 
-//블럭을 랜덤으로 생성함
+// 4번 블럭을 랜덤으로 생성 및 모양
 void CreatBlock(pBLOCK blockHead)
 {
     int blocks[7][4][4] =
@@ -224,7 +224,7 @@ void CreatBlock(pBLOCK blockHead)
 
 }
 
-//블럭의 오른쪽 왼쪽 끝의 좌표값 리턴(direction 왼쪽 확인은 1, 오른쪽확인은 0)
+// 블럭의 오른쪽 왼쪽 끝의 좌표값 리턴
 int CheckSide(pBLOCK blockHead, int direction)
 {
     pBLOCK curr = blockHead->next;
@@ -254,7 +254,7 @@ int CheckSide(pBLOCK blockHead, int direction)
     return side;
 }
 
-//블럭 출력
+// 5번 블럭 출력
 void PrintBlock(pBLOCK blockHead)
 {
     pBLOCK curr = blockHead->next;
@@ -266,7 +266,7 @@ void PrintBlock(pBLOCK blockHead)
     }
 }
 
-//블럭의 위치 지우기
+// 블럭의 위치 지우기
 void ClearBlock(pBLOCK blockHead)
 {
     pBLOCK curr = blockHead->next;
@@ -279,7 +279,7 @@ void ClearBlock(pBLOCK blockHead)
 }
 
 
-//입력된 필드의 줄을 지우는 함수
+// 6번 입력된 필드의 줄을 지우는 함수
 void DeleteLine(int  field[FIELD_HEIGHT][FIELD_WIDTH], int lineNumber)
 {
     for (int y = lineNumber; y > 0; y--)
@@ -295,7 +295,7 @@ void DeleteLine(int  field[FIELD_HEIGHT][FIELD_WIDTH], int lineNumber)
     }
 }
 
-//한줄이 가득찼는지 확인하는 함수
+// 7번 한줄이 가득찼는지 확인하는 함수
 int CheckFieldLine(int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     int scoringCounter = 0;
@@ -348,7 +348,7 @@ void MoveDown(pBLOCK blockHead)
     }
 }
 
-//블럭을 떨어뜨림.
+// 블럭을 떨어뜨림.
 void Drop(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     pBLOCK curr = blockHead->next;
@@ -360,7 +360,7 @@ void Drop(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
     }
 }
 
-//블럭과 필드에 쌓인 블럭과의 최단거리 구하기 리턴값은 최단거리
+// 블럭과 필드에 쌓인 블럭과의 최단거리 구하기 리턴값은 최단거리
 int GetDistance(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     pBLOCK curr = blockHead->next;
@@ -392,7 +392,7 @@ int GetDistance(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 
 }
 
-//블럭이 부딪히거나 쌓이게 되면 필드에 기록하고 메모리를 해제함
+// 8번 블럭이 부딪히거나 쌓이게 되면 필드에 기록하고 메모리를 해제함
 void PutBlocksInField(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     ClearField(field);
@@ -410,7 +410,7 @@ void PutBlocksInField(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
     PrintField(field);
 }
 
-//필드를 리셋해주는 함수
+// 9번 필드를 리셋해주는 함수
 void FieldReset(int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     for (int i = 0; i < FIELD_HEIGHT; i++)
@@ -420,7 +420,7 @@ void FieldReset(int field[FIELD_HEIGHT][FIELD_WIDTH])
     }
 }
 
-//블럭을 만든 메모리 해제
+// 블럭을 만든 메모리 해제
 void FreeBlockMemory(pBLOCK blockHead)
 {
     pBLOCK curr = blockHead;
@@ -433,7 +433,7 @@ void FreeBlockMemory(pBLOCK blockHead)
     }
 }
 
-//게임 시작시 
+// 10번 게임 시작시 
 void init(int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     ShowConsoleCursor(false);   //커서숨기기
@@ -456,7 +456,7 @@ void _2x2_Rotate(int target[][2], int source[][2])
     }
 }
 
-//블럭 회전
+// 11번 블럭 회전
 void RotateBlock(pBLOCK blockHead)
 {
     pBLOCK curr = blockHead->next;
@@ -465,7 +465,7 @@ void RotateBlock(pBLOCK blockHead)
     int blocks_rotate[4][4] = { 0, };
     int temp = 0;
 
-    //현재의 위치값을 저장
+    // 현재의 위치값을 저장
     while (curr != NULL)
     {
         if (curr->x < currPos_x)
@@ -475,7 +475,7 @@ void RotateBlock(pBLOCK blockHead)
         curr = curr->next;
     }
 
-    //회전을 시키기위해서 필드에 넣음
+    // 회전을 시키기위해서 필드에 넣음
     curr = blockHead->next;
     while (curr != NULL)
     {
@@ -483,7 +483,7 @@ void RotateBlock(pBLOCK blockHead)
         curr = curr->next;
     }
 
-    //회전 1단계 4개의 작은 블럭으로 만들어 작은블럭을 회전
+    // 회전 1단계 4개의 작은 블럭으로 만들어 작은블럭을 회전
     int rotate_step1[2][2][2][2] = { 0, };
     for (int bigY = 0; bigY < 2; bigY++)
     {
@@ -504,7 +504,7 @@ void RotateBlock(pBLOCK blockHead)
         }
     }
 
-    //회전 2단계
+    // 회전 2단계
     int temp2[2][2];
 
     _2x2_Rotate(temp2, rotate_step1[0][0]);
@@ -560,7 +560,7 @@ void RotateBlock(pBLOCK blockHead)
         }
     }
 
-    //회전하다가 블럭이 경계를 넘는지 확인하여 넘어가면 위치 조정
+    // 회전하다가 블럭이 경계를 넘는지 확인하여 넘어가면 위치 조정
     curr = blockHead->next;
     int rightSide = CheckSide(blockHead, 0);
     int leftSide = CheckSide(blockHead, 1);
@@ -582,7 +582,7 @@ void RotateBlock(pBLOCK blockHead)
     }
 }
 
-//다음블럭 인쇄
+// 다음블럭 인쇄
 void PrintNextBlock(pBLOCK nextBlockHead)
 {
     for (int y = 0; y < 3; y++)
@@ -602,13 +602,13 @@ void PrintNextBlock(pBLOCK nextBlockHead)
     }
 }
 
-//Next 블럭을 현재 블럭으로 옮김
+// Next 블럭을 현재 블럭으로 옮김
 void ExchgBlock(pBLOCK blockHead, pBLOCK nextBlockHead)
 {
     blockHead->next = nextBlockHead->next;
     nextBlockHead->next = NULL;
 }
-//게임점수 및 레벨 계산 및 출력
+// 12번 게임점수 및 레벨 계산 및 출력
 void CalculateScoreLevel(int* pScore, int* pLevel, double* speed, int numberOfLines)
 {
     switch (numberOfLines)
@@ -672,7 +672,7 @@ void CalculateScoreLevel(int* pScore, int* pLevel, double* speed, int numberOfLi
     gotoxy(2, 24);
 }
 
-//맨 윗줄 확인, 게임종료시 0이아닌 정수 리턴
+// 맨 윗줄 확인, 게임종료시 0이아닌 정수 리턴
 int CheckTopLineOfField(int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     int total1 = 0;
@@ -685,7 +685,7 @@ int CheckTopLineOfField(int field[FIELD_HEIGHT][FIELD_WIDTH])
     return total1 + total2;
 }
 
-//블럭왼쪽에 블럭이 쌓인지 확인 있으면 1리턴
+// 블럭왼쪽에 블럭이 쌓인지 확인 있으면 1리턴
 int CheckLeftBlock(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     pBLOCK curr = blockHead->next;
@@ -701,7 +701,7 @@ int CheckLeftBlock(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
     return indicator;
 }
 
-//블럭오른쪽에 블럭이 쌓인지 확인 있으면 1리턴
+// 블럭오른쪽에 블럭이 쌓인지 확인 있으면 1리턴
 int CheckRightBlock(pBLOCK blockHead, int field[FIELD_HEIGHT][FIELD_WIDTH])
 {
     pBLOCK curr = blockHead->next;
